@@ -1,22 +1,24 @@
-
-/* [Previous CSS remains unchanged] */
-
+/* Reset default margin and padding, and set box-sizing to border-box for all elements */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+/* Set background color, text color, and minimum height for the body */
 body {
     background-color: #1a1a1a;
     color: #ffffff;
     min-height: 100vh;
 }
 
+/* Define a responsive container with maximum width */
 .container {
     max-width: 1400px;
     padding: 0 15px;
 }
 
+/* Style cards with transition and box-shadow effects */
 .card {
     transition: transform 0.3s ease;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
@@ -25,16 +27,19 @@ body {
     border: 1px solid #444;
 }
 
+/* Add hover effect to lift the card slightly */
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
 }
 
+/* Card with colored left borders for different statuses */
 .card-case {
     border-radius: 10px;
     border-left: 5px solid;
 }
 
+/* Status-based border colors */
 .confirmed {
     border-left-color: #FF9800;
 }
@@ -51,6 +56,7 @@ body {
     border-left-color: #2196F3;
 }
 
+/* Header section with gradient background and rounded corners */
 .header {
     background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
     color: white;
@@ -59,16 +65,19 @@ body {
     border-radius: 0 0 20px 20px;
 }
 
+/* Form group spacing */
 .form-group {
     margin-bottom: 20px;
 }
 
+/* Form label styling */
 .form-label {
     color: #ffffff;
     font-weight: 500;
     margin-bottom: 8px;
 }
 
+/* Styling for select dropdowns */
 .form-select {
     background-color: #333;
     color: #ffffff;
@@ -76,6 +85,7 @@ body {
     padding: 10px;
 }
 
+/* Focus effect for select dropdown */
 .form-select:focus {
     background-color: #333;
     color: #ffffff;
@@ -83,11 +93,13 @@ body {
     box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.25);
 }
 
+/* Dropdown options styling */
 .form-select option {
     background-color: #333;
     color: #ffffff;
 }
 
+/* Loading spinner animation */
 .loader {
     border: 5px solid #444;
     border-top: 5px solid #3498db;
@@ -98,22 +110,24 @@ body {
     margin: 20px auto;
 }
 
+/* Keyframes for spinner rotation */
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(360deg);
     }
 }
 
+/* Styling for last updated text */
 #lastUpdated {
     font-style: italic;
     margin-top: 20px;
     color: #aaaaaa;
 }
 
+/* Error message styling */
 #errorMessage {
     display: none;
     color: #F44336;
@@ -122,6 +136,7 @@ body {
     border: 1px solid #F44336;
 }
 
+/* Styling for state cards with a purple left border */
 .state-card {
     border-radius: 10px;
     margin-bottom: 15px;
@@ -130,16 +145,19 @@ body {
     border: 1px solid #444;
 }
 
+/* Muted text color */
 .text-muted {
     color: #aaaaaa !important;
 }
 
+/* Header styling for cards */
 .card-header {
     background-color: #3a3a3a;
     color: #ffffff;
     border-bottom: 1px solid #555;
 }
 
+/* Selection row layout with flexbox */
 .selection-row {
     display: flex;
     flex-wrap: wrap;
@@ -147,11 +165,13 @@ body {
     margin-bottom: 30px;
 }
 
+/* Selection group for input fields */
 .selection-group {
     flex: 1;
     min-width: 250px;
 }
 
+/* Responsive styles for tablets (max-width: 768px) */
 @media (max-width: 768px) {
     .header {
         padding: 15px 0;
@@ -205,6 +225,7 @@ body {
     }
 }
 
+/* Responsive styles for smaller screens (max-width: 576px) */
 @media (max-width: 576px) {
     .container {
         padding: 0 10px;
@@ -236,6 +257,7 @@ body {
     }
 }
 
+/* Responsive styles for extra small screens (max-width: 400px) */
 @media (max-width: 400px) {
     .state-card .row>div {
         flex: 0 0 100%;
