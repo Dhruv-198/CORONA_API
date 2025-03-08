@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 Case Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header text-center">
+        <h1><i class="fas fa-virus"></i> COVID-19 Case Tracker</h1>
+        <p class="lead">Real-time global, country, and state/province-specific COVID-19 statistics</p>
+    </div>
+
+    <div class="container">
+        <div class="selection-row mb-4">
+            <div class="selection-group">
+                <div class="form-group">
+                    <label for="countrySelector" class="form-label">Select Country:</label>
+                    <select id="countrySelector" class="form-select" onchange="handleCountryChange()">
+                        <option value="all">Global Statistics</option>
+                    </select>
+                </div>
+            </div>
+            <div class="selection-group">
+                <div class="form-group">
+                    <label for="stateSelector" class="form-label">Select State/Province:</label>
+                    <select id="stateSelector" class="form-select" onchange="loadData()" disabled>
+                        <option value="all">All States/Provinces</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="errorMessage" class="alert alert-danger text-center"></div>
+
+        <div id="loader" class="loader"></div>
+
+        <div id="dashboard" style="display: none;">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-3 mb-4">
+                    <div class="card card-case confirmed">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Confirmed Cases</h5>
+                            <h2 id="confirmedCases" class="text-warning">-</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 mb-4">
+                    <div class="card card-case active">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Active Cases</h5>
+                            <h2 id="activeCases" class="text-primary">-</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 mb-4">
+                    <div class="card card-case recovered">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Recovered</h5>
+                            <h2 id="recoveredCases" class="text-success">-</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 mb-4">
+                    <div class="card card-case deaths">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Deaths</h5>
+                            <h2 id="deathCases" class="text-danger">-</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 col-md-6 mb-4 mb-md-0">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Today's Statistics</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="text-muted">New Cases:</p>
+                                    <h4 id="todayCases" class="text-warning">-</h4>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-muted">New Deaths:</p>
+                                    <h4 id="todayDeaths" class="text-danger">-</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Statistics</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="text-muted">Recovery Rate:</p>
+                                    <h4 id="recoveryRate" class="text-success">-</h4>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-muted">Fatality Rate:</p>
+                                    <h4 id="fatalityRate" class="text-danger">-</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Testing Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-sm-4 mb-3 mb-sm-0">
+                                    <p class="text-muted">Total Tests:</p>
+                                    <h4 id="totalTests" class="text-primary">-</h4>
+                                </div>
+                                <div class="col-12 col-sm-4 mb-3 mb-sm-0">
+                                    <p class="text-muted">Cases Per Million:</p>
+                                    <h4 id="casesPerMillion" class="text-warning">-</h4>
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    <p class="text-muted">Deaths Per Million:</p>
+                                    <h4 id="deathsPerMillion" class="text-danger">-</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4" id="statesSection" style="display: none;">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">State/Province Statistics</h5>
+                        </div>
+                        <div class="card-body" id="statesContainer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <p id="lastUpdated" class="text-muted">-</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
